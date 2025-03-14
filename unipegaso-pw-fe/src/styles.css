@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+.row-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px
+}
+
+.row-container.centered {
+    justify-content: center;
+}
+
+.toolbar-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    align-content: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px
+}
