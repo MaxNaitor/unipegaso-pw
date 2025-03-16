@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AlphaVantageService } from '../services/alpha-vantage.service';
 
 @Component({
   selector: 'app-mercati',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
   templateUrl: './mercati.component.html',
   styleUrl: './mercati.component.css'
 })
-export class MercatiComponent {
+export class MercatiComponent implements OnInit {
+
+  constructor(private alphaVantageService: AlphaVantageService) {}
+
+
+  ngOnInit(): void {
+    this.alphaVantageService.getAssetData("AAPL").subscribe(res => {
+      console.log(res)
+    })
+  }
 
 }
