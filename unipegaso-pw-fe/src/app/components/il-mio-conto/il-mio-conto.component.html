@@ -9,22 +9,24 @@
             <p-button label="Versa" rounded raised (onClick)="openVersamentoPrelievoDialog(true)" />
             <p-button label="Preleva" rounded raised (onClick)="openVersamentoPrelievoDialog(false)" />
         </div>
-        <div *ngIf="this.pieData" class="column-container centered">
-            <h5>Assets</h5>
-            <div class="pie-chart-container">
+        <div class="column-container centered">
+            <h5>{{utenteLoggato?.assetPosseduti?.length! > 0 ? 'I tuoi Asset' : 'Non hai nessun Asset'}}</h5>
+            <div class="pie-chart-container" *ngIf="utenteLoggato?.assetPosseduti?.length! > 0">
                 <p-chart type="pie" [data]="pieData" [options]="pieOptions" />
             </div>
-            <h5>Valore del portafogli: {{calcolaValorePortafogli()}}€</h5>
+            <h5>Valore del portafogli: {{calcolaValorePortafogli().toFixed(2)}}€</h5>
             <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')" />
         </div>
     </div>
 </div>
 
-<p-dialog [header]="isVersamento ? 'Versamento' : 'Prelievo'" [modal]="true" [(visible)]="versamentoPrelievoModalShow" [style]="{ width: '25rem' }">
+<p-dialog [header]="isVersamento ? 'Versamento' : 'Prelievo'" [modal]="true" [(visible)]="versamentoPrelievoModalShow"
+    [style]="{ width: '25rem' }">
     <div class="column-container centered">
         <span>Quanto vuoi {{isVersamento ? 'versare' : 'prelevare'}} ?</span>
-        <p-floatlabel variant="on"> 
-            <p-inputNumber [min]="0" step="0.01" id="importo" [(ngModel)]="importoMovimento" mode="decimal" [maxFractionDigits]="2"/>
+        <p-floatlabel variant="on">
+            <p-inputNumber [min]="0" step="0.01" id="importo" [(ngModel)]="importoMovimento" mode="decimal"
+                [maxFractionDigits]="2" />
             <label for="importo">Importo</label>
         </p-floatlabel>
         <div class="button-container">

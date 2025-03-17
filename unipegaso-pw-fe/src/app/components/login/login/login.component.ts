@@ -24,13 +24,26 @@ export class LoginComponent {
   login() {
     let authRequest = new AuthRequest()
     authRequest.username = this.username
-    authRequest.password= this.password //TODO criptare
+    authRequest.password= this.password 
     this.userService.login(authRequest).subscribe(res => {
       let authResponse: AuthResponse = res
       sessionStorage.setItem('auth-token',authResponse.token!)
       this.router.navigate(['il-mio-conto'])
     },err => {
       alert('Credenziali errate')
+    })
+  }
+
+  registra() {
+    let authRequest = new AuthRequest()
+    authRequest.username = this.username
+    authRequest.password= this.password
+    this.userService.registra(authRequest).subscribe(res => {
+      let authResponse: AuthResponse = res
+      sessionStorage.setItem('auth-token',authResponse.token!)
+      this.router.navigate(['il-mio-conto'])
+    },err => {
+      alert('Username già esistente')
     })
   }
 }

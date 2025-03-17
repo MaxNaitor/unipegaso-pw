@@ -11,14 +11,14 @@ import jakarta.persistence.Table;
 public class UtenteEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String username;
 
 	private String password;
 
-	private Double liquidita;
+	private Double liquidita = 0D;
 
 	// TODO tipo utente
 

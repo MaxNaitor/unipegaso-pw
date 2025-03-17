@@ -14,6 +14,10 @@ export class UserService {
     return this.http.post(UserEndpoints.LOGIN,req)
   }
 
+  registra(req: AuthRequest) {
+    return this.http.post(UserEndpoints.REGISTRA,req)
+  }
+
   getUser() {
     return this.http.get(UserEndpoints.GET_USER)
   }

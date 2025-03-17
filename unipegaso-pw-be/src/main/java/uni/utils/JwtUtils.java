@@ -53,9 +53,9 @@ public class JwtUtils {
 				.signWith(key, SignatureAlgorithm.HS256).compact();
 	}
 
-	public Boolean validateToken(String token, UserDetails userDetails) {
+	public Boolean validateToken(String token, String userName) {
 		final String username = extractUsername(token);
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+		return (username.equals(userName) && !isTokenExpired(token));
 	}
 
 	public String extractBearerToken(String bearer) {

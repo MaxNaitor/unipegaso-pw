@@ -8,7 +8,10 @@
             <input type="text" id="psw" pInputText [(ngModel)]="password" type="password" />
             <label for="psw">Password</label>
         </p-floatlabel>
-        <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password"/>
+        <div class="button-container centered">
+            <p-button label="Registra" rounded raised (onClick)="registra()" [disabled]="!username || !password"/>
+            <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password"/>
+        </div>
     </div>
 </div>
 

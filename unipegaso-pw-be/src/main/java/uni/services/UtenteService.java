@@ -12,10 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import uni.models.dtos.AssetUtente;
+import uni.models.dtos.AuthRequest;
+import uni.models.dtos.AuthResponse;
 import uni.models.dtos.Utente;
 import uni.models.entities.UtenteEntity;
 import uni.repositories.UtenteAssetRepository;
 import uni.repositories.UtenteRepository;
+import uni.utils.JwtUtils;
 
 @Service
 public class UtenteService implements UserDetailsService {
@@ -25,6 +28,34 @@ public class UtenteService implements UserDetailsService {
 
 	@Autowired
 	private UtenteAssetRepository utenteAssetRepository;
+
+	@Autowired
+	private PasswordService passwordService;
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	public AuthResponse login(AuthRequest authRequest) throws Exception {
+		Utente utente = getUtenteByUsername(authRequest.getUsername());
+		if (!passwordService.verifyPassword(authRequest.getPassword(), utente.getPassword()))
+			throw new Exception("Credenziali errate");
+		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword());
+	}
+
+	public AuthResponse registraUtente(AuthRequest authRequest) {
+		UtenteEntity utente = new UtenteEntity();
+		utente.setUsername(authRequest.getUsername());
+		utente.setPassword(passwordService.hashPassword(authRequest.getPassword()));
+		utente = utenteRepository.save(utente);
+		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword());
+	}
+
+	private AuthResponse buildAuthResponse(String username, String password) {
+		UserDetails userDetails = User.builder().username(username)
+				.password(new BCryptPasswordEncoder().encode(password)).build();
+		final String jwt = jwtUtils.generateToken(userDetails);
+		return new AuthResponse(jwt);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,4 +87,5 @@ public class UtenteService implements UserDetailsService {
 		utenteRepository.save(utente);
 		return nuovaLiquidita;
 	}
+
 }
