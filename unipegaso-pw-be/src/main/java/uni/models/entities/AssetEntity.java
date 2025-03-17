@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Table(name = "asset")
 public class AssetEntity {
 
-	@Id // Indica la chiave primaria
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 

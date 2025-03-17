@@ -14,7 +14,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import uni.services.CustomUserDetailsService;
+import uni.services.UtenteService;
 import uni.utils.JwtUtils;
 
 @Component
@@ -23,7 +23,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	private JwtUtils jwtUtils;
 
 	@Autowired
-	private CustomUserDetailsService userDetailsService;
+	private UtenteService userDetailsService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

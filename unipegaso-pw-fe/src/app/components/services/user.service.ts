@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserEndpoints } from '../../constants/constants';
-import { User } from '../../models/user';
 import { AuthRequest } from '../../models/auth-request';
 
 @Injectable({
@@ -13,5 +12,9 @@ export class UserService {
 
   login(req: AuthRequest) {
     return this.http.post(UserEndpoints.LOGIN,req)
+  }
+
+  getUser() {
+    return this.http.get(UserEndpoints.GET_USER)
   }
 }

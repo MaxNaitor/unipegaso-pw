@@ -58,7 +58,7 @@ export class AlphaVantageService {
           }
           if (pricesCount >= 7) break;
         }
-        asset.prices = prices
+        asset.prezzi = prices
         savedAssetsData.push(asset)
         localStorage.setItem('savedAssetsData', JSON.stringify(savedAssetsData))
         localStorage.setItem('lastAssetsUpdate', JSON.stringify(new Date()))
@@ -77,21 +77,32 @@ export class AlphaVantageService {
 
   //RESTITUISCE I DATI DELL'ASSET, CERCANDOLI NEL LOCAL STORAGE
   //SE QUESTI NON SONO PRESENTI O E' NECESSARIO UN AGGIORNAMENTO, CHIAMO ALPHA VANTAGE
-  getAssetData(ticker: string): Observable<any> {
-    let lastAssetUpdate = localStorage.getItem('lastAssetsUpdate')
-    if (lastAssetUpdate) {
-      let lastAssetUpdateDate: Date = JSON.parse(lastAssetUpdate)
-      let oggi = new Date()
-      if (this.stessoGiorno(oggi, lastAssetUpdateDate)) {
-        let savedAssetsData: Asset[] = JSON.parse(localStorage.getItem('savedAssetsData')!)
-        //FILTRO LA LISTA E RECUPERO L'ASSET RICHIESTO
-        return of(savedAssetsData.filter(asset => asset.ticker === ticker)[0])
-      } else {
-        return this.retrieveAssetDataFromAlphaVantage(ticker)
-      }
-    } else {
-      return this.retrieveAssetDataFromAlphaVantage(ticker)
-    }
+  // getAssetData(ticker: string): Observable<any> {
+  //   let lastAssetUpdate = localStorage.getItem('lastAssetsUpdate')
+  //   if (lastAssetUpdate) {
+  //     let lastAssetUpdateDate: Date = JSON.parse(lastAssetUpdate)
+  //     let oggi = new Date()
+  //     if (this.stessoGiorno(oggi, lastAssetUpdateDate)) {
+  //       let savedAssetsData: Asset[] = JSON.parse(localStorage.getItem('savedAssetsData')!)
+  //       //FILTRO LA LISTA E RECUPERO L'ASSET RICHIESTO
+  //       return of(savedAssetsData.filter(asset => asset.ticker === ticker)[0])
+  //     } else {
+  //       return this.retrieveAssetDataFromAlphaVantage(ticker)
+  //     }
+  //   } else {
+  //     return this.retrieveAssetDataFromAlphaVantage(ticker)
+  //   }
+  // }
+
+   //RESTITUISCE I DATI DELL'ASSET, CERCANDOLI NEL LOCAL STORAGE
+  getAssetData(ticker: string) {
+    let savedAssetsData: Asset[] = JSON.parse(localStorage.getItem('savedAssetsData')!)
+    //FILTRO LA LISTA E RECUPERO L'ASSET RICHIESTO
+    return savedAssetsData.filter(asset => asset.ticker === ticker)[0]
+  }
+
+  getUltimoPrezzo(ticker: string) {
+    return this.getAssetData(ticker).prezzi[0]
   }
 
   private stessoGiorno(date1: Date, date2: Date) {

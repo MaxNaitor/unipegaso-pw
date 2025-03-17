@@ -13,9 +13,6 @@ export class MercatiComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.alphaVantageService.getAssetData("AAPL").subscribe(res => {
-      console.log(res)
-    })
   }
 
 }
