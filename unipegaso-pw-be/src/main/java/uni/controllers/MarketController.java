@@ -18,4 +18,9 @@ public class MarketController {
 		asset.setTicker("AAPL");
 		return List.of(asset);
 	}
+
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
 }

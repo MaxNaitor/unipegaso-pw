@@ -23,11 +23,13 @@ public class SecurityConfig {
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
+	// IMPONE CHE TUTTE LE RICHIESTE SIANO AUTENTICATE, TRANNE QUELLE SPCIFICATE
+	// PERMIT ALL
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/user/login").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/user/login", "/market/available-assets")
+						.permitAll().anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

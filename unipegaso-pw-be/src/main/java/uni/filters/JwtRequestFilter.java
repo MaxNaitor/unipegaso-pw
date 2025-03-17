@@ -29,7 +29,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
-		if (request.getRequestURI().equals("/user/login")) {
+		// ENDPOINT CHE NON RICHIEDONO AUTORIZZAZIONE
+		if (request.getRequestURI().equals("/user/login")
+				|| request.getRequestURI().equals("/market/available-assets")) {
 			chain.doFilter(request, response);
 			return;
 		}
