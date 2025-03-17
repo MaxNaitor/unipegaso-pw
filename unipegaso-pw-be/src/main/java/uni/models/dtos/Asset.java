@@ -1,10 +1,24 @@
 package uni.models.dtos;
 
+import uni.models.entities.AssetEntity;
+
 public class Asset {
 
+	private Integer id;
 	private String ticker;
 	private String nome;
-	private String icon;
+	private String logo;
+
+	public Asset() {
+
+	}
+
+	public Asset(AssetEntity entity) {
+		this.id = entity.getId();
+		this.ticker = entity.getTicker();
+		this.nome = entity.getNome();
+		this.logo = entity.getLogo();
+	}
 
 	public String getTicker() {
 		return ticker;
@@ -22,12 +36,20 @@ public class Asset {
 		this.nome = nome;
 	}
 
-	public String getIcon() {
-		return icon;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 }
