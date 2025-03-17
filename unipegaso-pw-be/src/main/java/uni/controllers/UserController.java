@@ -56,4 +56,12 @@ public class UserController {
 		return ResponseEntity.ok(utente);
 	}
 
+	@PostMapping("/versa-preleva")
+	public ResponseEntity<?> versaPrelevaLiquidita(@RequestBody Double importo,
+			@RequestHeader(name = "Authorization", required = true) String authHeader) throws Exception {
+		String token = jwtUtils.extractBearerToken(authHeader);
+		String username = jwtUtils.extractUsername(token);
+		return ResponseEntity.ok(utenteService.versaPrelevaLiquidita(username, importo));
+	}
+
 }

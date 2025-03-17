@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import uni.models.dtos.Utente;
 import uni.models.dtos.AssetUtente;
+import uni.models.dtos.Utente;
 import uni.models.entities.UtenteEntity;
 import uni.repositories.UtenteAssetRepository;
 import uni.repositories.UtenteRepository;
@@ -43,5 +43,17 @@ public class UtenteService implements UserDetailsService {
 	public List<AssetUtente> getAssetDellUtente(String username) {
 		return utenteAssetRepository.findByUtenteUsername(username).stream().map(uaEntity -> new AssetUtente(uaEntity))
 				.collect(Collectors.toList());
+	}
+
+	public Double versaPrelevaLiquidita(String usernameUtente, Double importo) throws Exception {
+		UtenteEntity utente = utenteRepository.findByUsername(usernameUtente)
+				.orElseThrow(() -> new UsernameNotFoundException("Utente non trovato: " + usernameUtente));
+		Double nuovaLiquidita = utente.getLiquidita() + importo;
+		if (nuovaLiquidita < 0) {
+			throw new Exception("La liquidità non può essere minore di 0");
+		}
+		utente.setLiquidita(nuovaLiquidita);
+		utenteRepository.save(utente);
+		return nuovaLiquidita;
 	}
 }

@@ -7,10 +7,14 @@ import { CommonModule } from '@angular/common';
 import { COLORS } from '../../constants/constants';
 import { AlphaVantageService } from '../services/alpha-vantage.service';
 import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { FloatLabel } from 'primeng/floatlabel';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-il-mio-conto',
-  imports: [ChartModule, ButtonModule, CommonModule],
+  imports: [ChartModule, ButtonModule, CommonModule, DialogModule, FloatLabel, InputNumberModule, FormsModule],
   templateUrl: './il-mio-conto.component.html',
   styleUrl: './il-mio-conto.component.css'
 })
@@ -25,6 +29,10 @@ export class IlMioContoComponent implements OnInit {
 
   lineData: any;
   lineOptions: any;
+
+  versamentoPrelievoModalShow: boolean = false
+  isVersamento: boolean = true
+  importoMovimento: number = 0;
 
   ngOnInit(): void {
     this.initChart()
@@ -107,5 +115,29 @@ export class IlMioContoComponent implements OnInit {
       valore += asset.quoteAcquistate * (ultimoPrezzo.closePrice ? ultimoPrezzo.closePrice : ultimoPrezzo.openPrice)
     })
     return valore
+  }
+
+  openVersamentoPrelievoDialog(isVersamento: boolean) {
+    this.versamentoPrelievoModalShow = true
+    this.isVersamento = isVersamento
+  }
+
+  closeVersamentoPrelievoDialog() {
+    this.versamentoPrelievoModalShow = false
+    this.importoMovimento = 0
+  }
+
+  versaPreleva() {
+    let importo = this.isVersamento ? this.importoMovimento : -(this.importoMovimento)
+    this.userService.versaPreleva(importo).subscribe({
+      next: (res) => {
+        this.utenteLoggato!.liquidita = res as number
+        this.closeVersamentoPrelievoDialog()
+      },
+      error: err => {
+        console.log(err)
+        this.closeVersamentoPrelievoDialog()
+      }
+    })
   }
 }

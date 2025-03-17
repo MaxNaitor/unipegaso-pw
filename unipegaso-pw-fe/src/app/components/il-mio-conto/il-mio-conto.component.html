@@ -4,10 +4,10 @@
     </div>
     <div class="column-container centered">
         <h3>Le tue posizioni</h3>
-        <h5>Liquidità: {{this.utenteLoggato?.liquidita}}€</h5>
+        <h5>Liquidità: {{this.utenteLoggato?.liquidita?.toFixed(2)}}€</h5>
         <div class="button-container">
-            <p-button label="Versa" rounded raised />
-            <p-button label="Preleva" rounded raised />
+            <p-button label="Versa" rounded raised (onClick)="openVersamentoPrelievoDialog(true)" />
+            <p-button label="Preleva" rounded raised (onClick)="openVersamentoPrelievoDialog(false)" />
         </div>
         <div *ngIf="this.pieData" class="column-container centered">
             <h5>Assets</h5>
@@ -15,12 +15,24 @@
                 <p-chart type="pie" [data]="pieData" [options]="pieOptions" />
             </div>
             <h5>Valore del portafogli: {{calcolaValorePortafogli()}}€</h5>
-            <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')"/>
+            <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')" />
         </div>
     </div>
 </div>
 
-
+<p-dialog [header]="isVersamento ? 'Versamento' : 'Prelievo'" [modal]="true" [(visible)]="versamentoPrelievoModalShow" [style]="{ width: '25rem' }">
+    <div class="column-container centered">
+        <span>Quanto vuoi {{isVersamento ? 'versare' : 'prelevare'}} ?</span>
+        <p-floatlabel variant="on"> 
+            <p-inputNumber [min]="0" step="0.01" id="importo" [(ngModel)]="importoMovimento" mode="decimal" [maxFractionDigits]="2"/>
+            <label for="importo">Importo</label>
+        </p-floatlabel>
+        <div class="button-container">
+            <p-button label="Annulla" severity="secondary" (click)="closeVersamentoPrelievoDialog()" />
+            <p-button label="Continua" (click)="versaPreleva()" />
+        </div>
+    </div>
+</p-dialog>
 
 
 

@@ -17,4 +17,8 @@ export class UserService {
   getUser() {
     return this.http.get(UserEndpoints.GET_USER)
   }
+
+  versaPreleva(importo: number) {
+    return this.http.post(UserEndpoints.VERSA_PRELEVA,importo)
+  }
 }
