@@ -1,0 +1,14 @@
+<div class="centered-container">
+    <div class="column-container">
+        <p-floatlabel variant="on">
+            <input type="text" id="username" pInputText [(ngModel)]="username" />
+            <label for="username">Username</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on">
+            <input type="text" id="psw" pInputText [(ngModel)]="password" type="password" />
+            <label for="psw">Password</label>
+        </p-floatlabel>
+        <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password"/>
+    </div>
+</div>
+
