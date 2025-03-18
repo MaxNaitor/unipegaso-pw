@@ -27,15 +27,11 @@ export class IlMioContoComponent implements OnInit {
   pieData: any;
   pieOptions: any;
 
-  lineData: any;
-  lineOptions: any;
-
   versamentoPrelievoModalShow: boolean = false
   isVersamento: boolean = true
   importoMovimento: number = 0;
 
   ngOnInit(): void {
-    this.initChart()
     this.userService.getUser().subscribe(res => {
       this.utenteLoggato = res as User
 
@@ -69,39 +65,6 @@ export class IlMioContoComponent implements OnInit {
         }
       };
     })
-  }
-
-  initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-
-    this.lineData = {
-      labels: ['7', '6', '5', '4', '3', '2', '1'],
-      datasets: [
-        {
-          data: [505, 520, 530, 305, 405, 450],
-          backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')],
-          tension: 0.4,
-        }
-      ]
-    };
-
-    this.lineOptions = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        y: {
-          suggestedMin: 0
-        }
-      }
-    };
   }
 
   naviga(path: string) {

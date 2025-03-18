@@ -45,6 +45,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			if (jwtUtils.validateToken(jwt, username)) {
+
 				// CREA UN'AUTENTICAZIONE VALIDA PER SPRING SECURITY
 				UserDetails userDetails = utenteService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

@@ -5,4 +5,5 @@ export class Asset {
     nome!: string
     logo!: string
     prezzi!: Price[]
+    ultimoPrezzo?: number = 0
 }

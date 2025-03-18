@@ -1,1 +1,27 @@
-<p>mercati works!</p>
+<p-dataview #dv [value]="availableAssets">
+    <ng-template #list let-assets>
+        <div class="column-container centered" style="padding: 50px;">
+            <div *ngFor="let asset of assets" class="row-container centered card">
+                <div class="column-container centered" [title]="asset.nome">
+                    <img [src]="'assets/' + asset.ticker + '.png'" class="asset-logo" />
+                </div>
+                <div class="column-container centered small-gap">
+                    <h3>Variazioni di prezzo</h3>
+                    <div class="line-chart-container">
+                        <p-chart type="line" [data]="assetsLineDatas.get(asset.ticker)" [options]="lineOptions" class="h-[30rem]" [id]="asset.ticker" />
+                    </div>
+                </div>
+                <div class="column-container centered small-gap">
+                    <h4>Ultimo prezzo</h4>
+                    <h4>{{asset.ultimoPrezzo.toFixed(2)}} €</h4>
+                </div>
+                <div class="column-container centered">
+                    <p-button label="Acquista" rounded raised/>
+                </div>
+                <div class="column-container centered">
+                    <p-button label="Vendi" severity="danger" rounded raised/>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataview>
