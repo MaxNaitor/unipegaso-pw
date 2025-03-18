@@ -6,11 +6,15 @@ import { Asset } from '../../models/asset';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
-import { UserService } from '../services/user.service';
+import { DialogModule } from 'primeng/dialog';
+import { Ordine } from '../../models/ordine';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { FormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-mercati',
-  imports: [DataViewModule, CommonModule, ButtonModule, ChartModule],
+  imports: [DataViewModule, CommonModule, ButtonModule, ChartModule, DialogModule, FloatLabelModule, FormsModule,InputNumberModule],
   templateUrl: './mercati.component.html',
   styleUrl: './mercati.component.css'
 })
@@ -22,7 +26,10 @@ export class MercatiComponent implements OnInit {
   lineData: any;
   lineOptions: any;
 
-  constructor(private alphaVantageService: AlphaVantageService, private marketService: MarketService, private userService: UserService) { }
+  mostraOrdineDialog: boolean = false
+  ordine?: Ordine = new Ordine()
+
+  constructor(private alphaVantageService: AlphaVantageService, private marketService: MarketService) { }
 
   ngOnInit(): void {
     this.lineOptions = {
@@ -61,6 +68,24 @@ export class MercatiComponent implements OnInit {
         this.assetsLineDatas.set(asset.ticker,assetLineData)
       })
     })
+  }
+
+  apriOrdineDialog(asset: Asset,isAcquisto: boolean) {
+    this.ordine = new Ordine()
+    this.ordine.isAcquisto = isAcquisto
+    this.ordine.nomeAsset = asset.nome
+    this.ordine.ticker = asset.ticker
+    this.ordine.prezzo = asset.ultimoPrezzo!
+    this.mostraOrdineDialog = true
+  }
+
+  inviaOrdine() {
+    console.log(this.ordine)
+    this.mostraOrdineDialog = false
+  }
+
+  chiudiDialog() {
+    this.mostraOrdineDialog = false
   }
 
 }

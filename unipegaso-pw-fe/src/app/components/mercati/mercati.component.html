@@ -8,7 +8,8 @@
                 <div class="column-container centered small-gap">
                     <h3>Variazioni di prezzo</h3>
                     <div class="line-chart-container">
-                        <p-chart type="line" [data]="assetsLineDatas.get(asset.ticker)" [options]="lineOptions" class="h-[30rem]" [id]="asset.ticker" />
+                        <p-chart type="line" [data]="assetsLineDatas.get(asset.ticker)" [options]="lineOptions"
+                            class="h-[30rem]" [id]="asset.ticker" />
                     </div>
                 </div>
                 <div class="column-container centered small-gap">
@@ -16,12 +17,26 @@
                     <h4>{{asset.ultimoPrezzo.toFixed(2)}} €</h4>
                 </div>
                 <div class="column-container centered">
-                    <p-button label="Acquista" rounded raised/>
+                    <p-button label="Acquista" rounded raised (onClick)="apriOrdineDialog(asset,true)" />
                 </div>
                 <div class="column-container centered">
-                    <p-button label="Vendi" severity="danger" rounded raised/>
+                    <p-button label="Vendi" severity="danger" rounded raised
+                        (onClick)="apriOrdineDialog(asset,false)" />
                 </div>
             </div>
         </div>
     </ng-template>
 </p-dataview>
+
+<p-dialog [header]="this.ordine?.isAcquisto ? 'Compra ' : 'Vendi ' + ' ' + this.ordine?.nomeAsset" [modal]="true"
+    [(visible)]="mostraOrdineDialog" [style]="{ width: '25rem' }">
+    <div class="column-container">
+        <span>{{this.ordine?.isAcquisto ? 'Quante quote vuoi comprare?' : 'Quante quote vuoi vendere?'}}</span>
+        <p-inputNumber [min]="1" step="1" id="quote" [(ngModel)]="ordine!.quote" showButtons />
+        <span>{{'Importo totale: ' + (ordine!.prezzo * ordine!.quote).toFixed(2)}} €</span>
+        <div class="button-container">
+            <p-button label="Annulla" severity="secondary" (click)="chiudiDialog()" rounded/>
+            <p-button [label]="this.ordine?.isAcquisto ? 'Compra' : 'Vendi'" (click)="inviaOrdine()" [severity]="this.ordine?.isAcquisto ? 'primary' : 'danger'" rounded/>
+        </div>
+    </div>
+</p-dialog>

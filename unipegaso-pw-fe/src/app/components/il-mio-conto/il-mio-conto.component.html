@@ -22,16 +22,16 @@
 
 <p-dialog [header]="isVersamento ? 'Versamento' : 'Prelievo'" [modal]="true" [(visible)]="versamentoPrelievoModalShow"
     [style]="{ width: '25rem' }">
-    <div class="column-container centered">
+    <div class="column-container">
         <span>Quanto vuoi {{isVersamento ? 'versare' : 'prelevare'}} ?</span>
         <p-floatlabel variant="on">
             <p-inputNumber [min]="0" step="0.01" id="importo" [(ngModel)]="importoMovimento" mode="decimal"
-                [maxFractionDigits]="2" />
+                [maxFractionDigits]="2" showButtons/>
             <label for="importo">Importo</label>
         </p-floatlabel>
         <div class="button-container">
-            <p-button label="Annulla" severity="secondary" (click)="closeVersamentoPrelievoDialog()" />
-            <p-button label="Continua" (click)="versaPreleva()" />
+            <p-button label="Annulla" severity="secondary" (click)="closeVersamentoPrelievoDialog()" rounded />
+            <p-button label="Continua" (click)="versaPreleva()" rounded />
         </div>
     </div>
 </p-dialog>
