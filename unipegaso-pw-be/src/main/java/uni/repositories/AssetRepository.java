@@ -8,4 +8,5 @@ import uni.models.entities.AssetEntity;
 @Repository
 public interface AssetRepository extends JpaRepository<AssetEntity, Integer> {
 
+	AssetEntity findByTicker(String ticker);
 }

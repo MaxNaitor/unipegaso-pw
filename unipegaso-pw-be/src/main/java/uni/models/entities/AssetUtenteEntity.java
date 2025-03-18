@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "utente_asset")
-public class UtenteAssetEntity {
+public class AssetUtenteEntity {
 
 	@EmbeddedId
 	private UtenteAssetId id;
@@ -29,15 +29,32 @@ public class UtenteAssetEntity {
 	private AssetEntity asset;
 
 	@Column(name = "quote_possedute", nullable = false)
-	private Double quotePossedute;
+	private Double quotePossedute = 0D;
 
 //	@Column(name = "prezzo_medio", nullable = false)
 //	private BigDecimal prezzoMedio = BigDecimal.ZERO;
 
 	@Embeddable
 	public static class UtenteAssetId implements Serializable {
-		private Long utenteId;
-		private Long assetId;
+		private Integer utenteId;
+		private Integer assetId;
+
+		public Integer getUtenteId() {
+			return utenteId;
+		}
+
+		public void setUtenteId(Integer utenteId) {
+			this.utenteId = utenteId;
+		}
+
+		public Integer getAssetId() {
+			return assetId;
+		}
+
+		public void setAssetId(Integer assetId) {
+			this.assetId = assetId;
+		}
+
 	}
 
 	public UtenteAssetId getId() {
@@ -70,6 +87,14 @@ public class UtenteAssetEntity {
 
 	public void setQuotePossedute(Double quotePossedute) {
 		this.quotePossedute = quotePossedute;
+	}
+
+	public void aggiungiQuote(Double quotePossedute) {
+		this.quotePossedute += quotePossedute;
+	}
+
+	public void rimuoviQuote(Double quotePossedute) {
+		this.quotePossedute -= quotePossedute;
 	}
 
 //	public BigDecimal getPrezzoMedio() {

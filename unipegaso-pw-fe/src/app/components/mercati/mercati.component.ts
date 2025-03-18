@@ -80,7 +80,11 @@ export class MercatiComponent implements OnInit {
   }
 
   inviaOrdine() {
-    console.log(this.ordine)
+    this.marketService.eseguiOrdine(this.ordine!).subscribe(res => {
+      alert('Ordine eseguito correttamente')
+    },err => {
+      alert(this.ordine?.isAcquisto ? 'Liquidità non sufficiente' : 'Quote possedute non sufficienti')
+    })
     this.mostraOrdineDialog = false
   }
 

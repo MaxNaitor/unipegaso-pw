@@ -1,6 +1,7 @@
 export class MarketEnpoints {
     public static readonly BASE_PATH = '/api/market'
     public static readonly AVAILABLE_ASSETS = this.BASE_PATH + '/available-assets'
+    public static readonly ESEGUI_ORDINE = this.BASE_PATH + '/ordine'
 }
 
 export class UserEndpoints {

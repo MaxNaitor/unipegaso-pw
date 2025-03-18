@@ -18,9 +18,6 @@ import uni.utils.JwtUtils;
 @RequestMapping("/user")
 public class UserController {
 
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-
 	@Autowired
 	private JwtUtils jwtUtils;
 

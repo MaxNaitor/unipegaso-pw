@@ -1,6 +1,6 @@
 package uni.models.dtos;
 
-import uni.models.entities.UtenteAssetEntity;
+import uni.models.entities.AssetUtenteEntity;
 
 public class AssetUtente {
 
@@ -11,7 +11,7 @@ public class AssetUtente {
 
 	}
 
-	public AssetUtente(UtenteAssetEntity entity) {
+	public AssetUtente(AssetUtenteEntity entity) {
 		this.asset = new Asset(entity.getAsset());
 		this.quoteAcquistate = entity.getQuotePossedute();
 	}

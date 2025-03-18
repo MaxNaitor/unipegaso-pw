@@ -15,8 +15,9 @@ import uni.models.dtos.AssetUtente;
 import uni.models.dtos.AuthRequest;
 import uni.models.dtos.AuthResponse;
 import uni.models.dtos.Utente;
+import uni.models.entities.AssetUtenteEntity;
 import uni.models.entities.UtenteEntity;
-import uni.repositories.UtenteAssetRepository;
+import uni.repositories.AssetUtenteRepository;
 import uni.repositories.UtenteRepository;
 import uni.utils.JwtUtils;
 
@@ -27,7 +28,7 @@ public class UtenteService implements UserDetailsService {
 	private UtenteRepository utenteRepository;
 
 	@Autowired
-	private UtenteAssetRepository utenteAssetRepository;
+	private AssetUtenteRepository utenteAssetRepository;
 
 	@Autowired
 	private PasswordService passwordService;
@@ -65,20 +66,27 @@ public class UtenteService implements UserDetailsService {
 				.password(new BCryptPasswordEncoder().encode(utente.getPassword())).build();
 	}
 
-	public Utente getUtenteByUsername(String username) {
-		UtenteEntity entity = utenteRepository.findByUsername(username)
+	public UtenteEntity getUtenteEntityByUsername(String username) {
+		return utenteRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Utente non trovato: " + username));
+	}
+
+	public Utente getUtenteByUsername(String username) {
+		UtenteEntity entity = getUtenteEntityByUsername(username);
 		return new Utente(entity);
 	}
 
 	public List<AssetUtente> getAssetDellUtente(String username) {
-		return utenteAssetRepository.findByUtenteUsername(username).stream().map(uaEntity -> new AssetUtente(uaEntity))
+		return getAssetUtenteEntity(username).stream().map(uaEntity -> new AssetUtente(uaEntity))
 				.collect(Collectors.toList());
 	}
 
+	public List<AssetUtenteEntity> getAssetUtenteEntity(String username) {
+		return utenteAssetRepository.findByUtenteUsername(username);
+	}
+
 	public Double versaPrelevaLiquidita(String usernameUtente, Double importo) throws Exception {
-		UtenteEntity utente = utenteRepository.findByUsername(usernameUtente)
-				.orElseThrow(() -> new UsernameNotFoundException("Utente non trovato: " + usernameUtente));
+		UtenteEntity utente = getUtenteEntityByUsername(usernameUtente);
 		Double nuovaLiquidita = utente.getLiquidita() + importo;
 		if (nuovaLiquidita < 0) {
 			throw new Exception("La liquidità non può essere minore di 0");
@@ -86,6 +94,10 @@ public class UtenteService implements UserDetailsService {
 		utente.setLiquidita(nuovaLiquidita);
 		utenteRepository.save(utente);
 		return nuovaLiquidita;
+	}
+
+	public UtenteEntity saveUtente(UtenteEntity utente) {
+		return utenteRepository.save(utente);
 	}
 
 }

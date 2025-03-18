@@ -22,6 +22,14 @@ public class UtenteEntity {
 
 	// TODO tipo utente
 
+	public void aggiungiLiquidita(Double importo) {
+		this.liquidita += importo;
+	}
+
+	public void rimuoviLiquidita(Double importo) {
+		this.liquidita -= importo;
+	}
+
 	public Integer getId() {
 		return id;
 	}
