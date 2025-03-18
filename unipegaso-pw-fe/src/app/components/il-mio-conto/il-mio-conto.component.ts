@@ -95,10 +95,11 @@ export class IlMioContoComponent implements OnInit {
     this.userService.versaPreleva(importo).subscribe({
       next: (res) => {
         this.utenteLoggato!.liquidita = res as number
+        alert(this.isVersamento ? 'Versamento andato a buon fine' : 'Prelievo andato a buon fine')
         this.closeVersamentoPrelievoDialog()
       },
       error: err => {
-        console.log(err)
+        alert('Liquidità non sufficiente per il prelievo')
         this.closeVersamentoPrelievoDialog()
       }
     })
