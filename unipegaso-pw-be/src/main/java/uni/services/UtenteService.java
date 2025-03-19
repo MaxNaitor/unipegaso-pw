@@ -1,5 +1,6 @@
 package uni.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,14 +16,23 @@ import uni.models.dtos.AssetUtente;
 import uni.models.dtos.AuthRequest;
 import uni.models.dtos.AuthResponse;
 import uni.models.dtos.Utente;
+import uni.models.entities.AssetEntity;
 import uni.models.entities.AssetUtenteEntity;
+import uni.models.entities.TransazioneEntity;
 import uni.models.entities.UtenteEntity;
 import uni.repositories.AssetUtenteRepository;
+import uni.repositories.TransazioniRepository;
 import uni.repositories.UtenteRepository;
 import uni.utils.JwtUtils;
 
 @Service
 public class UtenteService implements UserDetailsService {
+
+	@Autowired
+	private PasswordService passwordService;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	@Autowired
 	private UtenteRepository utenteRepository;
@@ -31,10 +41,7 @@ public class UtenteService implements UserDetailsService {
 	private AssetUtenteRepository utenteAssetRepository;
 
 	@Autowired
-	private PasswordService passwordService;
-
-	@Autowired
-	private JwtUtils jwtUtils;
+	private TransazioniRepository transazioniRepository;
 
 	public AuthResponse login(AuthRequest authRequest) throws Exception {
 		Utente utente = getUtenteByUsername(authRequest.getUsername());
@@ -98,6 +105,18 @@ public class UtenteService implements UserDetailsService {
 
 	public UtenteEntity saveUtente(UtenteEntity utente) {
 		return utenteRepository.save(utente);
+	}
+
+	public TransazioneEntity salvaNuovaTransazione(UtenteEntity utente, AssetEntity asset, boolean acquisto,
+			Double prezzo, Integer quote) {
+		TransazioneEntity transazione = new TransazioneEntity();
+		transazione.setUtente(utente);
+		transazione.setAsset(asset);
+		transazione.setAcquisto(acquisto);
+		transazione.setPrezzo(prezzo);
+		transazione.setQuote(quote);
+		transazione.setData(LocalDate.now());
+		return transazioniRepository.save(transazione);
 	}
 
 }

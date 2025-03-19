@@ -69,12 +69,14 @@ public class MarketService {
 		}
 
 		if (assetUtente.getQuotePossedute() > 0) {
-			assetUtenteRepository.save(assetUtente);
+			assetUtente = assetUtenteRepository.save(assetUtente);
 		} else {
 			assetUtenteRepository.delete(assetUtente);
 		}
 
-		utenteService.saveUtente(utente);
+		utente = utenteService.saveUtente(utente);
+		utenteService.salvaNuovaTransazione(utente, assetUtente.getAsset(), ordine.getIsAcquisto(), importo,
+				ordine.getQuote());
 		return true;
 	}
 }

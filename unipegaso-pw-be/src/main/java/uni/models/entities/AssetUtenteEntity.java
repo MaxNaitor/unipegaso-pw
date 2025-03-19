@@ -19,7 +19,7 @@ public class AssetUtenteEntity {
 	private UtenteAssetId id;
 
 	@ManyToOne
-	@MapsId("utenteId") // Mappa la chiave primaria composta
+	@MapsId("utenteId")
 	@JoinColumn(name = "id_utente", nullable = false)
 	private UtenteEntity utente;
 
@@ -29,10 +29,7 @@ public class AssetUtenteEntity {
 	private AssetEntity asset;
 
 	@Column(name = "quote_possedute", nullable = false)
-	private Double quotePossedute = 0D;
-
-//	@Column(name = "prezzo_medio", nullable = false)
-//	private BigDecimal prezzoMedio = BigDecimal.ZERO;
+	private Integer quotePossedute = 0;
 
 	@Embeddable
 	public static class UtenteAssetId implements Serializable {
@@ -81,19 +78,19 @@ public class AssetUtenteEntity {
 		this.asset = asset;
 	}
 
-	public Double getQuotePossedute() {
+	public Integer getQuotePossedute() {
 		return quotePossedute;
 	}
 
-	public void setQuotePossedute(Double quotePossedute) {
+	public void setQuotePossedute(Integer quotePossedute) {
 		this.quotePossedute = quotePossedute;
 	}
 
-	public void aggiungiQuote(Double quotePossedute) {
+	public void aggiungiQuote(Integer quotePossedute) {
 		this.quotePossedute += quotePossedute;
 	}
 
-	public void rimuoviQuote(Double quotePossedute) {
+	public void rimuoviQuote(Integer quotePossedute) {
 		this.quotePossedute -= quotePossedute;
 	}
 

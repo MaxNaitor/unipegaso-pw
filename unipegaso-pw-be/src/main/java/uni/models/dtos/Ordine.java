@@ -3,7 +3,7 @@ package uni.models.dtos;
 public class Ordine {
 	private String ticker;
 	private Double prezzo;
-	private Double quote;
+	private Integer quote;
 	private boolean isAcquisto;
 
 	public String getTicker() {
@@ -22,11 +22,11 @@ public class Ordine {
 		this.prezzo = prezzo;
 	}
 
-	public Double getQuote() {
+	public Integer getQuote() {
 		return quote;
 	}
 
-	public void setQuote(Double quote) {
+	public void setQuote(Integer quote) {
 		this.quote = quote;
 	}
 

@@ -5,7 +5,7 @@ import uni.models.entities.AssetUtenteEntity;
 public class AssetUtente {
 
 	private Asset asset;
-	private Double quoteAcquistate;
+	private Integer quoteAcquistate;
 
 	public AssetUtente() {
 
@@ -24,11 +24,11 @@ public class AssetUtente {
 		this.asset = asset;
 	}
 
-	public Double getQuoteAcquistate() {
+	public Integer getQuoteAcquistate() {
 		return quoteAcquistate;
 	}
 
-	public void setQuoteAcquistate(Double quoteAcquistate) {
+	public void setQuoteAcquistate(Integer quoteAcquistate) {
 		this.quoteAcquistate = quoteAcquistate;
 	}
 
