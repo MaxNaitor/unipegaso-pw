@@ -1,1 +1,24 @@
-<p>storico-transazioni works!</p>
+<p-table [value]="transazioni" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Utente</th>
+            <th>Asset</th>
+            <th>Operazione</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Importo Finale</th>
+            <th>Data Operazione</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-transazione>
+        <tr>
+            <td>{{transazione.utente.username}}</td>
+            <td>{{transazione.asset.nome}}</td>
+            <td>{{transazione.acquisto ? 'Acquisto' : 'Vendita'}}</td>
+            <td>{{transazione.prezzo | currency:'EUR'}}</td>
+            <td>{{transazione.quote}}</td>
+            <td>{{transazione.prezzo * transazione.quote | currency:'EUR'}}</td>
+            <td>{{transazione.data | date:'dd/MM/yyyy'}}</td>
+        </tr>
+    </ng-template>
+</p-table>

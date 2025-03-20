@@ -17,4 +17,8 @@ export class MarketService {
   eseguiOrdine(ordine: Ordine) {
     return this.http.post(MarketEnpoints.ESEGUI_ORDINE,ordine)
   }
+
+  getTransazioniUtente(usernameUtente: string) {
+    return this.http.get(MarketEnpoints.GET_TRANSAZIONI_UTENTE.replace('{usernameUtente}',usernameUtente))
+  }
 }

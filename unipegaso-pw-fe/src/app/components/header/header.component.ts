@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { AUTH_TOKEN, USERNAME_UTENTE } from '../../constants/constants';
 
 @Component({
   selector: 'app-header',
@@ -19,11 +20,12 @@ export class HeaderComponent {
   }
 
   logout() {
-    sessionStorage.removeItem("auth-token")
+    sessionStorage.removeItem(AUTH_TOKEN)
+    sessionStorage.removeItem(USERNAME_UTENTE)
     window.location.reload()
   }
 
   mostraTastiNavigazione() {
-    return sessionStorage.getItem("auth-token") !== null
+    return sessionStorage.getItem(AUTH_TOKEN) !== null
   }
 }

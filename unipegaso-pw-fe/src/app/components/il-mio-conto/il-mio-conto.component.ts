@@ -4,7 +4,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../../models/user';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { COLORS } from '../../constants/constants';
+import { COLORS, USERNAME_UTENTE } from '../../constants/constants';
 import { AlphaVantageService } from '../services/alpha-vantage.service';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
@@ -34,6 +34,7 @@ export class IlMioContoComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe(res => {
       this.utenteLoggato = res as User
+      sessionStorage.setItem(USERNAME_UTENTE,this.utenteLoggato.username)
 
       let pieChartLabels: any[] = []
       let pieChartData: any[] = []

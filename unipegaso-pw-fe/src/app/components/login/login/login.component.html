@@ -1,5 +1,6 @@
 <div class="centered-container">
     <div class="column-container">
+        <h3>Benvenuto in "Io Investo"!</h3>
         <p-floatlabel variant="on">
             <input type="text" id="username" pInputText [(ngModel)]="username" />
             <label for="username">Username</label>
@@ -9,9 +10,8 @@
             <label for="psw">Password</label>
         </p-floatlabel>
         <div class="button-container centered">
-            <p-button label="Registra" rounded raised (onClick)="registra()" [disabled]="!username || !password"/>
-            <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password"/>
+            <p-button label="Registra" rounded raised (onClick)="registra()" [disabled]="!username || !password" />
+            <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password" />
         </div>
     </div>
 </div>
-

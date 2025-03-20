@@ -14,7 +14,7 @@
                 </div>
                 <div class="column-container centered small-gap">
                     <h4>Ultimo prezzo</h4>
-                    <h4>{{asset.ultimoPrezzo.toFixed(2)}} €</h4>
+                    <h4>{{asset.ultimoPrezzo.toFixed(2) | currency:'EUR'}}</h4>
                 </div>
                 <div class="column-container centered">
                     <p-button label="Acquista" rounded raised (onClick)="apriOrdineDialog(asset,true)" />
@@ -33,7 +33,7 @@
     <div class="column-container">
         <span>{{this.ordine?.isAcquisto ? 'Quante quote vuoi comprare?' : 'Quante quote vuoi vendere?'}}</span>
         <p-inputNumber [min]="1" step="1" id="quote" [(ngModel)]="ordine!.quote" showButtons />
-        <span>{{'Importo totale: ' + (ordine!.prezzo * ordine!.quote).toFixed(2)}} €</span>
+        <span>{{'Importo totale: ' + (ordine!.prezzo * ordine!.quote).toFixed(2) | currency:'EUR'}}</span>
         <div class="button-container">
             <p-button label="Annulla" severity="secondary" (click)="chiudiDialog()" rounded/>
             <p-button [label]="this.ordine?.isAcquisto ? 'Compra' : 'Vendi'" (click)="inviaOrdine()" [severity]="this.ordine?.isAcquisto ? 'primary' : 'danger'" rounded/>

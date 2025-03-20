@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import uni.models.dtos.Asset;
 import uni.models.dtos.Ordine;
+import uni.models.dtos.Transazione;
 import uni.models.entities.AssetUtenteEntity;
 import uni.models.entities.AssetUtenteEntity.UtenteAssetId;
 import uni.models.entities.UtenteEntity;
@@ -78,5 +79,9 @@ public class MarketService {
 		utenteService.salvaNuovaTransazione(utente, assetUtente.getAsset(), ordine.getIsAcquisto(), importo,
 				ordine.getQuote());
 		return true;
+	}
+
+	public List<Transazione> getTransazioniUtente(String username) {
+		return utenteService.getTransazioniUtente(username);
 	}
 }

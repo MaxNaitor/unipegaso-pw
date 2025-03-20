@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import uni.models.dtos.AssetUtente;
 import uni.models.dtos.AuthRequest;
 import uni.models.dtos.AuthResponse;
+import uni.models.dtos.Transazione;
 import uni.models.dtos.Utente;
 import uni.models.entities.AssetEntity;
 import uni.models.entities.AssetUtenteEntity;
@@ -117,6 +118,11 @@ public class UtenteService implements UserDetailsService {
 		transazione.setQuote(quote);
 		transazione.setData(LocalDate.now());
 		return transazioniRepository.save(transazione);
+	}
+
+	public List<Transazione> getTransazioniUtente(String username) {
+		return transazioniRepository.findByUtenteUsername(username).stream().map(entity -> new Transazione(entity))
+				.toList();
 	}
 
 }

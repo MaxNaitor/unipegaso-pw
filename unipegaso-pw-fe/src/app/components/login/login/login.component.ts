@@ -7,6 +7,7 @@ import { AuthRequest } from '../../../models/auth-request';
 import { UserService } from '../../services/user.service';
 import { AuthResponse } from '../../../models/auth-response';
 import { Router } from '@angular/router';
+import { AUTH_TOKEN } from '../../../constants/constants';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent {
     authRequest.password= this.password 
     this.userService.login(authRequest).subscribe(res => {
       let authResponse: AuthResponse = res
-      sessionStorage.setItem('auth-token',authResponse.token!)
+      sessionStorage.setItem(AUTH_TOKEN,authResponse.token!)
       this.router.navigate(['il-mio-conto'])
     },err => {
       alert('Credenziali errate')
@@ -40,7 +41,7 @@ export class LoginComponent {
     authRequest.password= this.password
     this.userService.registra(authRequest).subscribe(res => {
       let authResponse: AuthResponse = res
-      sessionStorage.setItem('auth-token',authResponse.token!)
+      sessionStorage.setItem(AUTH_TOKEN,authResponse.token!)
       this.router.navigate(['il-mio-conto'])
     },err => {
       alert('Username già esistente')

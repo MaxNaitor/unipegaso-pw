@@ -4,7 +4,7 @@
     </div>
     <div class="column-container centered">
         <h3>Le tue posizioni</h3>
-        <h5>Liquidità: {{this.utenteLoggato?.liquidita?.toFixed(2)}}€</h5>
+        <h5>Liquidità: {{this.utenteLoggato?.liquidita?.toFixed(2) | currency:'EUR'}}</h5>
         <div class="button-container">
             <p-button label="Versa" rounded raised (onClick)="openVersamentoPrelievoDialog(true)" />
             <p-button label="Preleva" rounded raised (onClick)="openVersamentoPrelievoDialog(false)" />
@@ -14,7 +14,7 @@
             <div class="pie-chart-container" *ngIf="utenteLoggato?.assetPosseduti?.length! > 0">
                 <p-chart type="pie" [data]="pieData" [options]="pieOptions" />
             </div>
-            <h5>Valore del portafogli: {{calcolaValorePortafogli().toFixed(2)}}€</h5>
+            <h5>Valore del portafogli: {{calcolaValorePortafogli().toFixed(2) | currency:'EUR'}}</h5>
             <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')" />
         </div>
     </div>
