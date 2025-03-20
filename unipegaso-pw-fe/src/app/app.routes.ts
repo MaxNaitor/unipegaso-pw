@@ -4,6 +4,7 @@ import { MercatiComponent } from './components/mercati/mercati.component';
 import { StoricoTransazioniComponent } from './components/storico-transazioni/storico-transazioni.component';
 import { AuthGuard } from './components/guards/auth-guard';
 import { LoginComponent } from './components/login/login/login.component';
+import { ImparaComponent } from './components/impara/impara.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'il-mio-conto', pathMatch: 'full'},
@@ -11,4 +12,5 @@ export const routes: Routes = [
     {path: 'il-mio-conto', component: IlMioContoComponent, canActivate: [AuthGuard]},
     {path: 'mercati', component: MercatiComponent, canActivate: [AuthGuard]},
     {path: 'transazioni', component: StoricoTransazioniComponent, canActivate: [AuthGuard]},
+    {path: 'impara', component: ImparaComponent, canActivate: [AuthGuard]},
 ];
