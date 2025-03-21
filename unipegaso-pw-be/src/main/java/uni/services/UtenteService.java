@@ -55,6 +55,7 @@ public class UtenteService implements UserDetailsService {
 		UtenteEntity utente = new UtenteEntity();
 		utente.setUsername(authRequest.getUsername());
 		utente.setPassword(passwordService.hashPassword(authRequest.getPassword()));
+		utente.setTipoUtente(1);
 		utente = utenteRepository.save(utente);
 		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword(), utente.getTipoUtente());
 	}

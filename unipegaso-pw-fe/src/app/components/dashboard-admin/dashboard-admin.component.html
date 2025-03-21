@@ -4,7 +4,8 @@
         <tr>
             <th>Utente</th>
             <th>Liquidità</th>
-            <th>Valore Portafoglio</th>
+            <th>Valore Asset</th>
+            <th>Valore Totale Portafoglio</th>
             <th>Assett Posseduti</th>
         </tr>
     </ng-template>
@@ -13,6 +14,7 @@
             <td>{{utente.username}}</td>
             <td>{{utente.liquidita | currency:'EUR'}}</td>
             <td>{{alphaVantageService.calcolaValoreAsset(utente).toFixed(2) | currency:'EUR'}}</td>
+            <td>{{(utente.liquidita + alphaVantageService.calcolaValoreAsset(utente)).toFixed(2) | currency:'EUR'}}</td>
             <td>{{getAssetPossedutiUtente(utente)}}</td>
         </tr>
     </ng-template>
