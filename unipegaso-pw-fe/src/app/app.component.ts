@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from "./components/header/header.component";
-import { AlphaVantageService } from './components/services/alpha-vantage.service';
+import { AlphaVantageService } from './services/alpha-vantage.service';
 
 @Component({
   selector: 'app-root',

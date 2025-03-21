@@ -4,11 +4,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { AuthRequest } from '../../../models/auth-request';
-import { UserService } from '../../services/user.service';
 import { AuthResponse } from '../../../models/auth-response';
 import { Router } from '@angular/router';
 import { AUTH_TOKEN, TIPO_UTENTE } from '../../../constants/constants';
 import { ADMIN_PATH, IL_MIO_CONTO_PATH } from '../../../app.routes';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-login',

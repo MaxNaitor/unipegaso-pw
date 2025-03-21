@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MarketService } from '../services/market.service';
 import { TableModule } from 'primeng/table';
 import { Transazione } from '../../models/transazione';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { MarketService } from '../../services/market.service';
 
 @Component({
   selector: 'app-storico-transazioni',

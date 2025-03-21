@@ -1,7 +1,9 @@
-.line-chart-container {
-    width: 50vw;
-}
 
 .pie-chart-container {
-    width: 20vw;
+    width: 35vw;
+}
+.row-container.centered {
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
 }

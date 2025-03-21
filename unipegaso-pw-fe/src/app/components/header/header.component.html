@@ -1,17 +1,17 @@
-<p-toolbar>
+<p-toolbar [style]="{'background-color': 'var(--primary)'}">
     <ng-template #start>
         <div class="row-container centered">
             <span class="toolbar-title">Io Investo [PW]</span>
             <div class="button-container" *ngIf="mostraTastiNavigazione()">
-                <p-button label="Mercati" rounded raised (onClick)="naviga(MERCATI_PATH)"/>
-                <p-button label="Il Mio Conto" rounded raised (onClick)="naviga(IL_MIO_CONTO_PATH)"/>
-                <p-button label="Transazioni" rounded raised (onClick)="naviga(TRANSAZIONI_PATH)"/>
-                <p-button label="Impara" rounded raised (onClick)="naviga(IMPARA_PATH)"/>
+                <p-button label="Mercati" rounded raised (onClick)="naviga(MERCATI_PATH)" severity="contrast"/>
+                <p-button label="Il Mio Conto" rounded raised (onClick)="naviga(IL_MIO_CONTO_PATH)" severity="contrast"/>
+                <p-button label="Transazioni" rounded raised (onClick)="naviga(TRANSAZIONI_PATH)" severity="contrast"/>
+                <p-button label="Impara" rounded raised (onClick)="naviga(IMPARA_PATH)" severity="contrast"/>
             </div>
         </div>
     </ng-template>
     <ng-template #end>
         <span class="toolbar-title">Matricola 0312301560</span>
-        <p-button *ngIf="mostraLogout()" label="Logout" rounded raised (onClick)="logout()"/>
+        <p-button *ngIf="mostraLogout()" label="Logout" rounded raised (onClick)="logout()" severity="contrast"/>
     </ng-template>
 </p-toolbar>

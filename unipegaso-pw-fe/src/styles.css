@@ -1,3 +1,15 @@
+:root {
+    --primary: #020617
+}
+
+html,
+body {
+    height: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+
 .row-container {
     display: flex;
     flex-direction: row;
@@ -40,6 +52,10 @@
     justify-content: flex-end;
 }
 
-h1,h2,h3,h4,h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     margin: 0px;
 }

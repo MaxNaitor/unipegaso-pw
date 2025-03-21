@@ -1,24 +1,31 @@
-<div class="column-container centered">
-    <div class="row-container centered">
-        <h1>Ciao {{utenteLoggato?.username}}!</h1>
+<div class="row-container centered" style="padding: 5%;">
+    <div class="column-container centered">
+        <div class="column-container">
+            <h1>Ciao {{utenteLoggato?.username?.toUpperCase()}}!</h1>
+            <h3>La tua Liquidità</h3>
+            <h1>{{this.utenteLoggato?.liquidita?.toFixed(2) | currency:'EUR'}}</h1>
+            <h3>Valore dei tuoi Asset</h3>
+            <h1>{{valoreAsset.toFixed(2) | currency:'EUR'}}</h1>
+            <h3>Valore totale del tuo portafogli</h3>
+            <h1>{{(this.utenteLoggato?.liquidita! + valoreAsset).toFixed(2) | currency:'EUR'}}</h1>
+            <div class="button-container">
+                <p-button label="Versa" rounded raised (onClick)="openVersamentoPrelievoDialog(true)" />
+                <p-button label="Preleva" rounded raised (onClick)="openVersamentoPrelievoDialog(false)"
+                    severity="danger" />
+            </div>
+            <div class="button-container">
+                <p-button label="Acquista/Vendi Asset" rounded raised (onClick)="naviga('mercati')"
+                    severity="contrast" />
+            </div>
+        </div>
     </div>
     <div class="column-container centered">
-        <h3>Le tue posizioni</h3>
-        <h5>Liquidità: {{this.utenteLoggato?.liquidita?.toFixed(2) | currency:'EUR'}}</h5>
-        <div class="button-container">
-            <p-button label="Versa" rounded raised (onClick)="openVersamentoPrelievoDialog(true)" />
-            <p-button label="Preleva" rounded raised (onClick)="openVersamentoPrelievoDialog(false)" />
-        </div>
-        <div class="column-container centered">
-            <h5>{{utenteLoggato?.assetPosseduti?.length! > 0 ? 'I tuoi Asset' : 'Non hai nessun Asset'}}</h5>
-            <div class="pie-chart-container" *ngIf="utenteLoggato?.assetPosseduti?.length! > 0">
-                <p-chart type="pie" [data]="pieData" [options]="pieOptions" />
-            </div>
-            <h5>Valore del portafogli: {{alphaVantageService.calcolaValorePortafogli(utenteLoggato!).toFixed(2) | currency:'EUR'}}</h5>
-            <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')" />
+        <div class="pie-chart-container">
+            <app-asset-pie-chart [utente]="this.utenteLoggato"></app-asset-pie-chart>
         </div>
     </div>
 </div>
+
 
 <p-dialog [header]="isVersamento ? 'Versamento' : 'Prelievo'" [modal]="true" [(visible)]="versamentoPrelievoModalShow"
     [style]="{ width: '25rem' }">
@@ -26,7 +33,7 @@
         <span>Quanto vuoi {{isVersamento ? 'versare' : 'prelevare'}} ?</span>
         <p-floatlabel variant="on">
             <p-inputNumber [min]="0" step="0.01" id="importo" [(ngModel)]="importoMovimento" mode="decimal"
-                [maxFractionDigits]="2" showButtons/>
+                [maxFractionDigits]="2" showButtons />
             <label for="importo">Importo</label>
         </p-floatlabel>
         <div class="button-container">
@@ -35,6 +42,3 @@
         </div>
     </div>
 </p-dialog>
-
-
-

@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { UserService } from '../services/user.service';
 import { Utente } from '../../models/utente';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { COLORS, USERNAME_UTENTE } from '../../constants/constants';
-import { AlphaVantageService } from '../services/alpha-vantage.service';
+import { USERNAME_UTENTE } from '../../constants/constants';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { AssetPieChartComponent } from "../asset-pie-chart/asset-pie-chart.component";
+import { AlphaVantageService } from '../../services/alpha-vantage.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-il-mio-conto',
-  imports: [ChartModule, ButtonModule, CommonModule, DialogModule, FloatLabel, InputNumberModule, FormsModule],
+  imports: [ChartModule, ButtonModule, CommonModule, DialogModule, FloatLabel, InputNumberModule, FormsModule, AssetPieChartComponent],
   templateUrl: './il-mio-conto.component.html',
   styleUrl: './il-mio-conto.component.css'
 })
 export class IlMioContoComponent implements OnInit {
 
-  constructor(private userService: UserService, public alphaVantageService: AlphaVantageService, private router: Router) { }
+  constructor(private userService: UserService, private alphaVantageService: AlphaVantageService, private router: Router) { }
 
   utenteLoggato?: Utente
 
@@ -31,40 +32,13 @@ export class IlMioContoComponent implements OnInit {
   isVersamento: boolean = true
   importoMovimento: number = 0;
 
+  valoreAsset: number = 0
+
   ngOnInit(): void {
     this.userService.getUser().subscribe(res => {
       this.utenteLoggato = res as Utente
       sessionStorage.setItem(USERNAME_UTENTE,this.utenteLoggato.username)
-
-      let pieChartLabels: any[] = []
-      let pieChartData: any[] = []
-
-      //COSTRUISCO IL GRAFICO A PARTIRE DAGLI ASSET POSSEDUTI DALL'UTENTE
-      this.utenteLoggato.assetPosseduti.forEach(assetUtente => {
-        let ultimoPrezzo = this.alphaVantageService.getUltimoPrezzo(assetUtente.asset.ticker)
-        pieChartLabels.push(assetUtente.asset.nome)
-        pieChartData.push(assetUtente.quoteAcquistate * (ultimoPrezzo.closePrice ? ultimoPrezzo.closePrice : ultimoPrezzo.openPrice))
-      })
-
-      this.pieData = {
-        labels: pieChartLabels,
-        datasets: [
-          {
-            data: pieChartData,
-            backgroundColor: COLORS.slice(0, pieChartLabels.length),
-          }
-        ]
-      };
-
-      this.pieOptions = {
-        plugins: {
-          legend: {
-            labels: {
-              usePointStyle: true,
-            }
-          }
-        }
-      };
+      this.valoreAsset = this.alphaVantageService.calcolaValoreAsset(this.utenteLoggato!)
     })
   }
 

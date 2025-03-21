@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MarketEnpoints } from '../../constants/constants';
-import { Ordine } from '../../models/ordine';
+import { MarketEnpoints } from '../constants/constants';
+import { Ordine } from '../models/ordine';
 
 @Injectable({
   providedIn: 'root'

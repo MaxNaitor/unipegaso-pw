@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { IlMioContoComponent } from './components/il-mio-conto/il-mio-conto.component';
 import { MercatiComponent } from './components/mercati/mercati.component';
 import { StoricoTransazioniComponent } from './components/storico-transazioni/storico-transazioni.component';
-import { AuthGuard } from './components/guards/auth-guard';
+import { AuthGuard } from './guards/auth-guard';
 import { LoginComponent } from './components/login/login/login.component';
 import { ImparaComponent } from './components/impara/impara.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';

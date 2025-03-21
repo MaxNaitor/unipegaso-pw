@@ -1,4 +1,4 @@
-<div class="centered-container">
+<div class="column-container centered" style="padding: 5%;">
     <div class="column-container">
         <h3>Benvenuto in "Io Investo"!</h3>
         <p-floatlabel variant="on">
@@ -10,8 +10,8 @@
             <label for="psw">Password</label>
         </p-floatlabel>
         <div class="button-container centered">
-            <p-button label="Registra" rounded raised (onClick)="registra()" [disabled]="!username || !password" />
-            <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password" />
+            <p-button label="Registra" rounded raised (onClick)="registra()" [disabled]="!username || !password" severity="secondary"/>
+            <p-button label="Login" rounded raised (onClick)="login()" [disabled]="!username || !password" severity="contrast"/>
         </div>
     </div>
 </div>

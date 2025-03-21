@@ -11,7 +11,7 @@
         <tr>
             <td>{{utente.username}}</td>
             <td>{{utente.liquidita | currency:'EUR'}}</td>
-            <td>{{alphaVantageService.calcolaValorePortafogli(utente).toFixed(2) | currency:'EUR'}}</td>
+            <td>{{alphaVantageService.calcolaValoreAsset(utente).toFixed(2) | currency:'EUR'}}</td>
             <td>{{getAssetPossedutiUtente(utente)}}</td>
         </tr>
     </ng-template>

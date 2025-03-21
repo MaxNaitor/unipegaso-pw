@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../services/admin.service';
 import { Utente as Utente } from '../../models/utente';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
-import { DataViewModule } from 'primeng/dataview';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { AlphaVantageService } from '../services/alpha-vantage.service';
+import { AlphaVantageService } from '../../services/alpha-vantage.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-dashboard-admin',

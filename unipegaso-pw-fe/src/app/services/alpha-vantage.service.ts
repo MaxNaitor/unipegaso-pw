@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Price } from '../../models/price';
 import { MarketService } from './market.service';
-import { Asset } from '../../models/asset';
-import { Utente } from '../../models/utente';
+import { Asset } from '../models/asset';
+import { Price } from '../models/price';
+import { Utente } from '../models/utente';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +95,7 @@ export class AlphaVantageService {
       d1.getFullYear() === d2.getFullYear();
   }
 
-  calcolaValorePortafogli(utente: Utente) {
+  calcolaValoreAsset(utente: Utente) {
     let valore = 0
     utente?.assetPosseduti.forEach(asset => {
       let ultimoPrezzo = this.getUltimoPrezzo(asset.asset.ticker)
