@@ -17,3 +17,4 @@ export const COLORS = ['red','green','blue','yellow','pink']
 
 export const AUTH_TOKEN = 'auth-token'
 export const USERNAME_UTENTE = 'usernameUtente'
+export const TIPO_UTENTE = 'tipoUtente'

@@ -14,6 +14,8 @@ public class Utente {
 
 	private Double liquidita;
 
+	private Integer tipoUtente;
+
 	private List<AssetUtente> assetPosseduti;
 
 	public Utente() {
@@ -25,6 +27,7 @@ public class Utente {
 		this.username = entity.getUsername();
 		this.password = entity.getPassword();
 		this.liquidita = entity.getLiquidita();
+		this.tipoUtente = entity.getTipoUtente();
 	}
 
 	public Integer getId() {
@@ -67,6 +70,12 @@ public class Utente {
 		this.assetPosseduti = assetPosseduti;
 	}
 
-	// TODO tipo utente
+	public Integer getTipoUtente() {
+		return tipoUtente;
+	}
+
+	public void setTipoUtente(Integer tipoUtente) {
+		this.tipoUtente = tipoUtente;
+	}
 
 }

@@ -48,7 +48,7 @@ public class UtenteService implements UserDetailsService {
 		Utente utente = getUtenteByUsername(authRequest.getUsername());
 		if (!passwordService.verifyPassword(authRequest.getPassword(), utente.getPassword()))
 			throw new Exception("Credenziali errate");
-		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword());
+		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword(), utente.getTipoUtente());
 	}
 
 	public AuthResponse registraUtente(AuthRequest authRequest) {
@@ -56,14 +56,14 @@ public class UtenteService implements UserDetailsService {
 		utente.setUsername(authRequest.getUsername());
 		utente.setPassword(passwordService.hashPassword(authRequest.getPassword()));
 		utente = utenteRepository.save(utente);
-		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword());
+		return buildAuthResponse(authRequest.getUsername(), authRequest.getPassword(), utente.getTipoUtente());
 	}
 
-	private AuthResponse buildAuthResponse(String username, String password) {
+	private AuthResponse buildAuthResponse(String username, String password, Integer tipoUtente) {
 		UserDetails userDetails = User.builder().username(username)
 				.password(new BCryptPasswordEncoder().encode(password)).build();
 		final String jwt = jwtUtils.generateToken(userDetails);
-		return new AuthResponse(jwt);
+		return new AuthResponse(jwt, tipoUtente);
 	}
 
 	@Override

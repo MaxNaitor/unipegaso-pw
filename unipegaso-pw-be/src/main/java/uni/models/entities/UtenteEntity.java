@@ -1,5 +1,6 @@
 package uni.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,8 @@ public class UtenteEntity {
 
 	private Double liquidita = 0D;
 
-	// TODO tipo utente
+	@Column(name = "tipo_utente")
+	private Integer tipoUtente;
 
 	public void aggiungiLiquidita(Double importo) {
 		this.liquidita += importo;
@@ -60,6 +62,14 @@ public class UtenteEntity {
 
 	public void setLiquidita(Double liquidita) {
 		this.liquidita = liquidita;
+	}
+
+	public Integer getTipoUtente() {
+		return tipoUtente;
+	}
+
+	public void setTipoUtente(Integer tipoUtente) {
+		this.tipoUtente = tipoUtente;
 	}
 
 }

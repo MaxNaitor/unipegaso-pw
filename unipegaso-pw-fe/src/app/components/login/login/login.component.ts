@@ -7,7 +7,8 @@ import { AuthRequest } from '../../../models/auth-request';
 import { UserService } from '../../services/user.service';
 import { AuthResponse } from '../../../models/auth-response';
 import { Router } from '@angular/router';
-import { AUTH_TOKEN } from '../../../constants/constants';
+import { AUTH_TOKEN, TIPO_UTENTE } from '../../../constants/constants';
+import { ADMIN_PATH, IL_MIO_CONTO_PATH } from '../../../app.routes';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +29,7 @@ export class LoginComponent {
     authRequest.password= this.password 
     this.userService.login(authRequest).subscribe(res => {
       let authResponse: AuthResponse = res
-      sessionStorage.setItem(AUTH_TOKEN,authResponse.token!)
-      this.router.navigate(['il-mio-conto'])
+      this.setUserInSessionAndRedirect(authResponse)
     },err => {
       alert('Credenziali errate')
     })
@@ -41,10 +41,19 @@ export class LoginComponent {
     authRequest.password= this.password
     this.userService.registra(authRequest).subscribe(res => {
       let authResponse: AuthResponse = res
-      sessionStorage.setItem(AUTH_TOKEN,authResponse.token!)
-      this.router.navigate(['il-mio-conto'])
+      this.setUserInSessionAndRedirect(authResponse)
     },err => {
       alert('Username già esistente')
     })
+  }
+
+  setUserInSessionAndRedirect(authResponse: AuthResponse) {
+    sessionStorage.setItem(AUTH_TOKEN,authResponse.token!)
+    sessionStorage.setItem(TIPO_UTENTE,authResponse.tipoUtente!.toString())
+    if (authResponse.tipoUtente == 1) {
+      this.router.navigate([IL_MIO_CONTO_PATH])
+    } else {
+      this.router.navigate([ADMIN_PATH])
+    }
   }
 }

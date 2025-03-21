@@ -3,10 +3,10 @@
         <div class="row-container centered">
             <span class="toolbar-title">Io Investo [PW]</span>
             <div class="button-container" *ngIf="mostraTastiNavigazione()">
-                <p-button label="Mercati" rounded raised (onClick)="naviga('mercati')"/>
-                <p-button label="Il Mio Conto" rounded raised (onClick)="naviga('il-mio-conto')"/>
-                <p-button label="Transazioni" rounded raised (onClick)="naviga('transazioni')"/>
-                <p-button label="Impara" rounded raised (onClick)="naviga('impara')"/>
+                <p-button label="Mercati" rounded raised (onClick)="naviga(MERCATI_PATH)"/>
+                <p-button label="Il Mio Conto" rounded raised (onClick)="naviga(IL_MIO_CONTO_PATH)"/>
+                <p-button label="Transazioni" rounded raised (onClick)="naviga(TRANSAZIONI_PATH)"/>
+                <p-button label="Impara" rounded raised (onClick)="naviga(IMPARA_PATH)"/>
             </div>
         </div>
     </ng-template>
