@@ -26,8 +26,6 @@ export class AssetPieChartComponent implements OnChanges {
     let pieChartLabels: any[] = []
     let pieChartData: any[] = []
 
-    console.log('init',this.utente)
-
     this.utente?.assetPosseduti.forEach(assetUtente => {
       let ultimoPrezzo = this.alphaVantageService.getUltimoPrezzo(assetUtente.asset.ticker)
       pieChartLabels.push(assetUtente.asset.nome)

@@ -1,4 +1,5 @@
-<p-table [value]="utenti" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="utenti" [tableStyle]="{ 'min-width': '50rem' }" stripedRows selectionMode="single"
+    [(selection)]="utenteSelezionato" dataKey="id" (onRowSelect)="mostraDettagliUtente()">
     <ng-template #header>
         <tr>
             <th>Utente</th>
@@ -8,7 +9,7 @@
         </tr>
     </ng-template>
     <ng-template #body let-utente>
-        <tr>
+        <tr [pSelectableRow]="utente">
             <td>{{utente.username}}</td>
             <td>{{utente.liquidita | currency:'EUR'}}</td>
             <td>{{alphaVantageService.calcolaValoreAsset(utente).toFixed(2) | currency:'EUR'}}</td>
@@ -17,15 +18,29 @@
     </ng-template>
 </p-table>
 
-<!-- <p-dialog [header]="this.ordine?.isAcquisto ? 'Compra ' : 'Vendi ' + ' ' + this.ordine?.nomeAsset" [modal]="true"
-    [(visible)]="mostraOrdineDialog" [style]="{ width: '25rem' }">
-    <div class="column-container">
-        <span>{{this.ordine?.isAcquisto ? 'Quante quote vuoi comprare?' : 'Quante quote vuoi vendere?'}}</span>
-        <p-inputNumber [min]="1" step="1" id="quote" [(ngModel)]="ordine!.quote" showButtons />
-        <span>{{'Importo totale: ' + (ordine!.prezzo * ordine!.quote).toFixed(2) | currency:'EUR'}}</span>
-        <div class="button-container">
-            <p-button label="Annulla" severity="secondary" (click)="chiudiDialog()" rounded/>
-            <p-button [label]="this.ordine?.isAcquisto ? 'Compra' : 'Vendi'" (click)="inviaOrdine()" [severity]="this.ordine?.isAcquisto ? 'primary' : 'danger'" rounded/>
+<p-dialog [header]="utenteSelezionato?.username" [modal]="true"
+    [(visible)]="mostraUtenteDialog" [style]="{ width: '80%' }">
+    <div class="row-container centered">
+        <div class="column-container centered">
+            <div class="column-container">
+                <h3>Liquidità</h3>
+                <h1>{{utenteSelezionato?.liquidita?.toFixed(2) | currency:'EUR'}}</h1>
+                <h3>Valore degli Asset</h3>
+                <h1>{{alphaVantageService.calcolaValoreAsset(utenteSelezionato!).toFixed(2) | currency:'EUR'}}</h1>
+                <h3>Valore totale del portafogli</h3>
+                <h1>{{(utenteSelezionato?.liquidita! + alphaVantageService.calcolaValoreAsset(utenteSelezionato!)).toFixed(2) | currency:'EUR'}}</h1>
+            </div>
+        </div>
+        <div class="column-container centered">
+            <div class="pie-chart-container">
+                <app-asset-pie-chart [utente]="utenteSelezionato"></app-asset-pie-chart>
+            </div>
         </div>
     </div>
-</p-dialog> -->
+    <div class="row-container centered" style="margin-top: 15px;">
+        <div class="column-container centered">
+            <h3>Transazioni</h3>
+            <app-storico-transazioni [usernameUtente]="utenteSelezionato?.username"></app-storico-transazioni>
+        </div>
+    </div> 
+</p-dialog>

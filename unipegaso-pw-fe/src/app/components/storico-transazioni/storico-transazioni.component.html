@@ -1,4 +1,4 @@
-<p-table [value]="transazioni" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="transazioni" [tableStyle]="{ 'min-width': '50rem' }" >
     <ng-template #header>
         <tr>
             <th>Utente</th>
@@ -21,4 +21,10 @@
             <td>{{transazione.data | date:'dd/MM/yyyy'}}</td>
         </tr>
     </ng-template>
+    <ng-template #emptymessage>
+        <tr>
+            <td colspan="7">Nessuna transazione</td>
+        </tr>
+    </ng-template>
 </p-table>
+

@@ -7,16 +7,21 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { AlphaVantageService } from '../../services/alpha-vantage.service';
 import { AdminService } from '../../services/admin.service';
+import { AssetPieChartComponent } from '../asset-pie-chart/asset-pie-chart.component';
+import { StoricoTransazioniComponent } from "../storico-transazioni/storico-transazioni.component";
 
 @Component({
   selector: 'app-dashboard-admin',
-  imports: [DialogModule, CommonModule, ButtonModule, ChartModule, TableModule,],
+  imports: [DialogModule, CommonModule, ButtonModule, ChartModule, TableModule, AssetPieChartComponent, StoricoTransazioniComponent],
   templateUrl: './dashboard-admin.component.html',
   styleUrl: './dashboard-admin.component.css'
 })
 export class DashboardAdminComponent implements OnInit {
 
   utenti: Utente[] = []
+  utenteSelezionato?: Utente
+
+  mostraUtenteDialog: boolean = false
 
   constructor(private adminService: AdminService, public alphaVantageService: AlphaVantageService) {}
 
@@ -34,5 +39,8 @@ export class DashboardAdminComponent implements OnInit {
     return 'Nessun Asset posseduto';
   }
   
+  mostraDettagliUtente() {
+    this.mostraUtenteDialog = true
+  }
 
 }
