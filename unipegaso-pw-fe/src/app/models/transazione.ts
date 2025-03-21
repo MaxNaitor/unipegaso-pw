@@ -1,5 +1,5 @@
 import { Asset } from "./asset";
-import { User } from "./user";
+import { Utente } from "./utente";
 
 export class Transazione {
     id?: number;
@@ -7,6 +7,6 @@ export class Transazione {
     prezzo?: number;
     data?: Date;
     acquisto?: boolean;
-    utente?: User;
+    utente?: Utente;
     asset?: Asset;
 }

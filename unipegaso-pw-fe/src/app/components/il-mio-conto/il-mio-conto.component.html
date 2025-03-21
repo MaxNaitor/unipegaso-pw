@@ -14,7 +14,7 @@
             <div class="pie-chart-container" *ngIf="utenteLoggato?.assetPosseduti?.length! > 0">
                 <p-chart type="pie" [data]="pieData" [options]="pieOptions" />
             </div>
-            <h5>Valore del portafogli: {{calcolaValorePortafogli().toFixed(2) | currency:'EUR'}}</h5>
+            <h5>Valore del portafogli: {{alphaVantageService.calcolaValorePortafogli(utenteLoggato!).toFixed(2) | currency:'EUR'}}</h5>
             <p-button label="Acquista/Vendi" rounded raised (onClick)="naviga('mercati')" />
         </div>
     </div>

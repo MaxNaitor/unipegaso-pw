@@ -125,4 +125,11 @@ public class UtenteService implements UserDetailsService {
 				.toList();
 	}
 
+	public List<Utente> getAllUsers(boolean ignoreAdmin) {
+		if (ignoreAdmin) {
+			return utenteRepository.findByTipoUtenteEquals(1).stream().map(u -> new Utente(u)).toList();
+		}
+		return utenteRepository.findAll().stream().map(u -> new Utente(u)).toList();
+	}
+
 }

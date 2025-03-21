@@ -1,6 +1,6 @@
 import { AssetUtente } from "./asset-utente"
 
-export class User {
+export class Utente {
     id!: number
     username!: string
     liquidita: number = 0

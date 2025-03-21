@@ -25,4 +25,5 @@ export class UserService {
   versaPreleva(importo: number) {
     return this.http.post(UserEndpoints.VERSA_PRELEVA,importo)
   }
+  
 }

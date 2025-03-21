@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Price } from '../../models/price';
 import { MarketService } from './market.service';
 import { Asset } from '../../models/asset';
+import { Utente } from '../../models/utente';
 
 @Injectable({
   providedIn: 'root'
@@ -74,26 +75,6 @@ export class AlphaVantageService {
     return this.http.get(this.ALPHA_VANTAGE_URL, { params });
   }
 
-
-  //RESTITUISCE I DATI DELL'ASSET, CERCANDOLI NEL LOCAL STORAGE
-  //SE QUESTI NON SONO PRESENTI O E' NECESSARIO UN AGGIORNAMENTO, CHIAMO ALPHA VANTAGE
-  // getAssetData(ticker: string): Observable<any> {
-  //   let lastAssetUpdate = localStorage.getItem('lastAssetsUpdate')
-  //   if (lastAssetUpdate) {
-  //     let lastAssetUpdateDate: Date = JSON.parse(lastAssetUpdate)
-  //     let oggi = new Date()
-  //     if (this.stessoGiorno(oggi, lastAssetUpdateDate)) {
-  //       let savedAssetsData: Asset[] = JSON.parse(localStorage.getItem('savedAssetsData')!)
-  //       //FILTRO LA LISTA E RECUPERO L'ASSET RICHIESTO
-  //       return of(savedAssetsData.filter(asset => asset.ticker === ticker)[0])
-  //     } else {
-  //       return this.retrieveAssetDataFromAlphaVantage(ticker)
-  //     }
-  //   } else {
-  //     return this.retrieveAssetDataFromAlphaVantage(ticker)
-  //   }
-  // }
-
    //RESTITUISCE I DATI DELL'ASSET, CERCANDOLI NEL LOCAL STORAGE
   getAssetData(ticker: string) {
     let savedAssetsData: Asset[] = JSON.parse(localStorage.getItem('savedAssetsData')!)
@@ -112,6 +93,15 @@ export class AlphaVantageService {
     return d1.getDate() === d2.getDate() &&
       d1.getMonth() === d2.getMonth() &&
       d1.getFullYear() === d2.getFullYear();
+  }
+
+  calcolaValorePortafogli(utente: Utente) {
+    let valore = 0
+    utente?.assetPosseduti.forEach(asset => {
+      let ultimoPrezzo = this.getUltimoPrezzo(asset.asset.ticker)
+      valore += asset.quoteAcquistate * (ultimoPrezzo.closePrice ? ultimoPrezzo.closePrice : ultimoPrezzo.openPrice)
+    })
+    return valore
   }
 
 }

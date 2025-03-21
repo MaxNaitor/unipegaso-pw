@@ -34,4 +34,8 @@ export class HeaderComponent {
   mostraTastiNavigazione() {
     return sessionStorage.getItem(AUTH_TOKEN) !== null && sessionStorage.getItem(TIPO_UTENTE) !== null && sessionStorage.getItem(TIPO_UTENTE) == '1'
   }
+
+  mostraLogout() {
+    return sessionStorage.getItem(AUTH_TOKEN) !== null
+  }
 }

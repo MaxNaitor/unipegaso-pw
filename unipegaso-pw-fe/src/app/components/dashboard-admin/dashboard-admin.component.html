@@ -1,1 +1,31 @@
-<p>dashboard-admin works!</p>
+<p-table [value]="utenti" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Utente</th>
+            <th>Liquidità</th>
+            <th>Valore Portafoglio</th>
+            <th>Assett Posseduti</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-utente>
+        <tr>
+            <td>{{utente.username}}</td>
+            <td>{{utente.liquidita | currency:'EUR'}}</td>
+            <td>{{alphaVantageService.calcolaValorePortafogli(utente).toFixed(2) | currency:'EUR'}}</td>
+            <td>{{getAssetPossedutiUtente(utente)}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- <p-dialog [header]="this.ordine?.isAcquisto ? 'Compra ' : 'Vendi ' + ' ' + this.ordine?.nomeAsset" [modal]="true"
+    [(visible)]="mostraOrdineDialog" [style]="{ width: '25rem' }">
+    <div class="column-container">
+        <span>{{this.ordine?.isAcquisto ? 'Quante quote vuoi comprare?' : 'Quante quote vuoi vendere?'}}</span>
+        <p-inputNumber [min]="1" step="1" id="quote" [(ngModel)]="ordine!.quote" showButtons />
+        <span>{{'Importo totale: ' + (ordine!.prezzo * ordine!.quote).toFixed(2) | currency:'EUR'}}</span>
+        <div class="button-container">
+            <p-button label="Annulla" severity="secondary" (click)="chiudiDialog()" rounded/>
+            <p-button [label]="this.ordine?.isAcquisto ? 'Compra' : 'Vendi'" (click)="inviaOrdine()" [severity]="this.ordine?.isAcquisto ? 'primary' : 'danger'" rounded/>
+        </div>
+    </div>
+</p-dialog> -->

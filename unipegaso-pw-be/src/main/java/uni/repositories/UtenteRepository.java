@@ -1,5 +1,6 @@
 package uni.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ import uni.models.entities.UtenteEntity;
 public interface UtenteRepository extends JpaRepository<UtenteEntity, Integer> {
 
 	Optional<UtenteEntity> findByUsername(String username);
+
+	List<UtenteEntity> findByTipoUtenteEquals(Integer tipoUtente);
 }

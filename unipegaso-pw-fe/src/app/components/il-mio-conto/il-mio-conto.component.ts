@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { UserService } from '../services/user.service';
-import { User } from '../../models/user';
+import { Utente } from '../../models/utente';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { COLORS, USERNAME_UTENTE } from '../../constants/constants';
@@ -20,9 +20,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class IlMioContoComponent implements OnInit {
 
-  constructor(private userService: UserService, private alphaVantageService: AlphaVantageService, private router: Router) { }
+  constructor(private userService: UserService, public alphaVantageService: AlphaVantageService, private router: Router) { }
 
-  utenteLoggato?: User
+  utenteLoggato?: Utente
 
   pieData: any;
   pieOptions: any;
@@ -33,7 +33,7 @@ export class IlMioContoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(res => {
-      this.utenteLoggato = res as User
+      this.utenteLoggato = res as Utente
       sessionStorage.setItem(USERNAME_UTENTE,this.utenteLoggato.username)
 
       let pieChartLabels: any[] = []
@@ -70,15 +70,6 @@ export class IlMioContoComponent implements OnInit {
 
   naviga(path: string) {
     this.router.navigate([path])
-  }
-
-  calcolaValorePortafogli() {
-    let valore = 0
-    this.utenteLoggato?.assetPosseduti.forEach(asset => {
-      let ultimoPrezzo = this.alphaVantageService.getUltimoPrezzo(asset.asset.ticker)
-      valore += asset.quoteAcquistate * (ultimoPrezzo.closePrice ? ultimoPrezzo.closePrice : ultimoPrezzo.openPrice)
-    })
-    return valore
   }
 
   openVersamentoPrelievoDialog(isVersamento: boolean) {

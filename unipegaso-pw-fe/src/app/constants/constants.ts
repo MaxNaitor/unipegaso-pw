@@ -13,7 +13,12 @@ export class UserEndpoints {
     public static readonly VERSA_PRELEVA = this.BASE_PATH + '/versa-preleva'
 }
 
-export const COLORS = ['red','green','blue','yellow','pink']
+export class AdminEndpoints {
+    public static readonly BASE_PATH = '/api/admin'
+    public static readonly GET_UTENTI = this.BASE_PATH + '/utenti'
+}
+
+export const COLORS = ['red', 'green', 'blue', 'yellow', 'pink']
 
 export const AUTH_TOKEN = 'auth-token'
 export const USERNAME_UTENTE = 'usernameUtente'
